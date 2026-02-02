@@ -29,10 +29,55 @@
             line-height: 1.6;
         }
         
+        /* Top Navigation Bar */
+        .top-nav {
+            background: white;
+            border-bottom: 1px solid #eaeaea;
+            padding: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .top-nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .top-nav a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .top-nav a:hover {
+            color: var(--accent-orange);
+        }
+        
+        .wordpress-link {
+            background: var(--primary-blue);
+            color: white !important;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .wordpress-link:hover {
+            background: var(--dark-blue);
+        }
+        
+        /* Existing Header */
         .header {
             background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
             color: white;
-            padding: 1.5rem 0;
+            padding: 2.5rem 0 1.5rem;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
@@ -53,6 +98,7 @@
             margin: 0 auto;
         }
         
+        /* Main Navigation */
         .nav-tabs {
             display: flex;
             justify-content: center;
@@ -82,12 +128,14 @@
             transform: translateY(-2px);
         }
         
+        /* Main Content */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 2rem;
         }
         
+        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--light-blue) 0%, white 100%);
             border-radius: 20px;
@@ -110,6 +158,7 @@
             align-items: center;
         }
         
+        /* Cards */
         .card {
             background: white;
             border-radius: 15px;
@@ -140,6 +189,7 @@
             font-size: 1.8rem;
         }
         
+        /* Process Diagram */
         .process-diagram {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -178,6 +228,7 @@
             color: var(--primary-blue);
         }
         
+        /* Data Visualization */
         .data-viz {
             background: linear-gradient(135deg, #00204a 0%, #1a5f7a 100%);
             color: white;
@@ -200,6 +251,7 @@
             border-left: 4px solid var(--accent-yellow);
         }
         
+        /* GitHub Section */
         .github-section {
             background: #24292e;
             color: white;
@@ -226,6 +278,7 @@
             transform: scale(1.05);
         }
         
+        /* Results Section */
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -247,27 +300,84 @@
             margin: 1rem 0;
         }
         
+        /* Footer */
         .footer {
             background: var(--dark-blue);
             color: white;
-            text-align: center;
             padding: 3rem 0;
             margin-top: 4rem;
         }
         
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-yellow);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #d9f4ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-yellow);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-bottom a {
+            color: var(--secondary-blue);
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero-grid {
+            .hero-grid, .top-nav .container {
                 grid-template-columns: 1fr;
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
             }
+            
             .nav-tabs {
                 flex-direction: column;
                 text-align: center;
             }
+            
             .container {
                 padding: 0 1rem;
             }
+            
+            .top-nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
         
+        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -280,11 +390,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
+        <div class="container">
+            <div class="nav-brand">
+                <strong>Kariba Solar Research</strong>
+            </div>
+            <div class="top-nav-links">
+                <a href="#repository"><i class="fab fa-github"></i> Source Code</a>
+                <a href="https://github.com/chawas/charara_01" target="_blank"><i class="fas fa-download"></i> Download Data</a>
+                <a href="https://wchawaguta.wordpress.com/wave-motion/" class="wordpress-link" target="_blank">
+                    <i class="fas fa-arrow-left"></i> Back to Wave Motion
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
     <header class="header">
         <h1>Kariba Solar Wave Analysis</h1>
         <p class="subtitle">Comprehensive wave climate assessment for floating solar installation at Chirahara, Lake Kariba</p>
     </header>
 
+    <!-- Main Navigation -->
     <nav>
         <ul class="nav-tabs">
             <li><a href="#overview"><i class="fas fa-home"></i> Overview</a></li>
@@ -296,6 +424,7 @@
     </nav>
 
     <div class="container">
+        <!-- Hero Section -->
         <section id="overview" class="hero fade-in">
             <div class="hero-grid">
                 <div>
@@ -323,6 +452,7 @@
             </div>
         </section>
 
+        <!-- Methodology Section -->
         <section id="methodology" class="card fade-in">
             <h3><i class="fas fa-project-diagram"></i> Three-Stage Analysis Methodology</h3>
             <p>Our approach combines global reanalysis with high-resolution local modeling:</p>
@@ -370,6 +500,7 @@
             </div>
         </section>
 
+        <!-- Data Visualization Section -->
         <section id="data" class="data-viz fade-in">
             <h2 style="color: white; margin-bottom: 1rem;"><i class="fas fa-database"></i> Data Sources & Coverage</h2>
             <p>Multiple data layers integrated for comprehensive analysis</p>
@@ -398,6 +529,7 @@
             </div>
         </section>
 
+        <!-- Results Section -->
         <section id="results" class="card fade-in">
             <h3><i class="fas fa-chart-line"></i> Key Findings & Design Parameters</h3>
             <p>Critical wave statistics for engineering design at Chirahara site</p>
@@ -450,6 +582,7 @@
             </div>
         </section>
 
+        <!-- GitHub Repository Section -->
         <section id="repository" class="github-section fade-in">
             <h2><i class="fab fa-github"></i> Open Source Implementation</h2>
             <p>Complete reproducible workflow available on GitHub</p>
@@ -467,8 +600,19 @@
                 </div>
                 
                 <a href="https://github.com/chawas/charara_01" class="github-link" target="_blank">
-                    <i class="fab fa-github"></i> View on GitHub
+                    <i class="fab fa-github"></i> Browse Repository
                 </a>
+                
+                <!-- NEW: Return to WordPress Button -->
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <h4><i class="fas fa-arrow-left"></i> Return to Main Site</h4>
+                    <p>Continue browsing our research on the main website</p>
+                    <a href="https://wchawaguta.wordpress.com/wave-motion/" 
+                       target="_blank"
+                       style="background: var(--secondary-blue); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; display: inline-block; margin-top: 1rem; font-size: 1.1rem;">
+                       <i class="fas fa-external-link-alt"></i> Back to Wave Motion Page
+                    </a>
+                </div>
                 
                 <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
                     <span style="background: #57c5b6; color: white; padding: 0.5rem 1rem; border-radius: 20px;">
@@ -487,6 +631,7 @@
             </div>
         </section>
 
+        <!-- Team & Contact -->
         <section class="card fade-in" style="text-align: center;">
             <h3><i class="fas fa-users"></i> Project Team & Contact</h3>
             <p style="max-width: 800px; margin: 1rem auto;">This project is led by climate scientists and renewable energy engineers specializing in African hydro-climate systems.</p>
@@ -524,44 +669,65 @@
         </section>
     </div>
 
+    <!-- Updated Footer with Links -->
     <footer class="footer">
-        <div class="container">
-            <h3 style="margin-bottom: 1rem;">Kariba Solar Wave Analysis Project</h3>
-            <p>Advancing renewable energy through rigorous climate science</p>
-            
-            <div style="margin: 2rem 0; display: flex; justify-content: center; gap: 2rem;">
-                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-github"></i></a>
-                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fas fa-file-pdf"></i></a>
-                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fas fa-database"></i></a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kariba Solar Project</h4>
+                <p>Wave climate assessment for floating solar installation at Lake Kariba, Zimbabwe.</p>
             </div>
             
-            <p style="opacity: 0.8; font-size: 0.9rem; margin-top: 2rem;">
-                © 2024 Kariba Solar Research Initiative. This work is licensed under MIT License.
-            </p>
-            <p style="opacity: 0.6; font-size: 0.8rem;">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#overview">Project Overview</a></li>
+                    <li><a href="#methodology">Methodology</a></li>
+                    <li><a href="#results">Key Findings</a></li>
+                    <li><a href="#repository">Source Code</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>External Links</h4>
+                <ul class="footer-links">
+                    <li><a href="https://wchawaguta.wordpress.com/wave-motion/" target="_blank"><i class="fas fa-home"></i> Return to Wave Motion</a></li>
+                    <li><a href="https://github.com/chawas/charara_01" target="_blank"><i class="fab fa-github"></i> GitHub Repository</a></li>
+                    <li><a href="https://cds.climate.copernicus.eu" target="_blank"><i class="fas fa-database"></i> ERA5 Data</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© <script>document.write(new Date().getFullYear())</script> Kariba Solar Research Initiative. 
+               This work is licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
                 Data sources: ERA5 from Copernicus Climate Data Store, WRF model, ground station observations.
+                <a href="https://wchawaguta.wordpress.com/privacy" target="_blank" style="margin-left: 1rem;">Privacy Policy</a>
             </p>
         </div>
     </footer>
 
     <script>
-        document.querySelectorAll('.nav-tabs a').forEach(anchor => {
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-tabs a, .footer-links a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+                if(this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
         
-        const observerOptions = {
-            threshold: 0.1
-        };
-        
+        // Animation on scroll
+        const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -572,13 +738,6 @@
         
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
-        });
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const yearSpan = document.querySelector('footer p:last-of-type');
-            if (yearSpan) {
-                yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', new Date().getFullYear());
-            }
         });
     </script>
 </body>
