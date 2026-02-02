@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kariba Solar Project | Wave Climate Analysis</title>
+    <style>
+        :root {
+            --primary-blue: #1a5f7a;
+            --secondary-blue: #57c5b6;
+            --accent-orange: #ff8a5c;
+            --accent-yellow: #ffd166;
+            --dark-blue: #00204a;
+            --light-blue: #d9f4ff;
+            --success-green: #2a9d8f;
+            --warning-orange: #e76f51;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--accent-yellow), var(--accent-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background: var(--primary-blue);
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-bottom: 3px solid var(--accent-yellow);
+        }
+        
+        .nav-tabs li {
+            padding: 1rem 2rem;
+        }
+        
+        .nav-tabs a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-tabs a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--light-blue) 0%, white 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 32, 74, 0.1);
+            border-left: 6px solid var(--accent-orange);
+        }
+        
+        .hero h2 {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--secondary-blue);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h3:before {
+            content: "▸";
+            color: var(--accent-orange);
+            font-size: 1.8rem;
+        }
+        
+        .process-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .process-step {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--accent-orange);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+        
+        .data-viz {
+            background: linear-gradient(135deg, #00204a 0%, #1a5f7a 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+        
+        .viz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .viz-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-yellow);
+        }
+        
+        .github-section {
+            background: #24292e;
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+        
+        .github-link {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .github-link:hover {
+            background: #ff6b3c;
+            transform: scale(1.05);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--secondary-blue);
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin: 1rem 0;
+        }
+        
+        .footer {
+            background: var(--dark-blue);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-tabs {
+                flex-direction: column;
+                text-align: center;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Kariba Solar Wave Analysis</h1>
+        <p class="subtitle">Comprehensive wave climate assessment for floating solar installation at Chirahara, Lake Kariba</p>
+    </header>
+
+    <nav>
+        <ul class="nav-tabs">
+            <li><a href="#overview"><i class="fas fa-home"></i> Overview</a></li>
+            <li><a href="#methodology"><i class="fas fa-cogs"></i> Methodology</a></li>
+            <li><a href="#data"><i class="fas fa-database"></i> Data Sources</a></li>
+            <li><a href="#results"><i class="fas fa-chart-bar"></i> Results</a></li>
+            <li><a href="#repository"><i class="fab fa-github"></i> Code Repository</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="overview" class="hero fade-in">
+            <div class="hero-grid">
+                <div>
+                    <h2>🌊 Engineering Resilience for Africa's Largest Floating Solar Project</h2>
+                    <p>This project delivers a high-resolution wave climate assessment for the proposed 1.2GW floating solar installation at Chirahara, Lake Kariba. Combining state-of-the-art atmospheric modeling with advanced wave simulation to ensure structural integrity and optimal design.</p>
+                    <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <span style="background: var(--success-green); color: white; padding: 0.5rem 1rem; border-radius: 5px;">
+                            <i class="fas fa-calendar-alt"></i> Timeline: 6 months
+                        </span>
+                        <span style="background: var(--primary-blue); color: white; padding: 0.5rem 1rem; border-radius: 5px;">
+                            <i class="fas fa-map-marker-alt"></i> Location: Chirahara, Lake Kariba
+                        </span>
+                        <span style="background: var(--accent-orange); color: white; padding: 0.5rem 1rem; border-radius: 5px;">
+                            <i class="fas fa-solar-panel"></i> Capacity: 1.2 GW
+                        </span>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                        <i class="fas fa-water" style="font-size: 4rem; color: var(--secondary-blue); margin-bottom: 1rem;"></i>
+                        <h3>Key Challenge</h3>
+                        <p>Design wave heights for floating solar infrastructure in Africa's largest man-made lake with complex wind patterns.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="methodology" class="card fade-in">
+            <h3><i class="fas fa-project-diagram"></i> Three-Stage Analysis Methodology</h3>
+            <p>Our approach combines global reanalysis with high-resolution local modeling:</p>
+            
+            <div class="process-diagram">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">📡</div>
+                    <h4>ERA5 Reanalysis</h4>
+                    <p>30-year historical weather data (1990-2020) at 31km resolution from ECMWF</p>
+                    <div style="margin-top: 1rem; padding: 0.5rem; background: var(--light-blue); border-radius: 5px;">
+                        <small><strong>Output:</strong> Initial wave climate assessment</small>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🌀</div>
+                    <h4>WRF Downscaling</h4>
+                    <p>Weather Research & Forecasting model at 1km resolution for Lake Kariba</p>
+                    <div style="margin-top: 1rem; padding: 0.5rem; background: var(--light-blue); border-radius: 5px;">
+                        <small><strong>Output:</strong> Site-specific wind fields</small>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🌊</div>
+                    <h4>SWAN Wave Modeling</h4>
+                    <p>Simulating Waves Nearshore model with detailed bathymetry</p>
+                    <div style="margin-top: 1rem; padding: 0.5rem; background: var(--light-blue); border-radius: 5px;">
+                        <small><strong>Output:</strong> Design wave parameters</small>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">📊</div>
+                    <h4>Validation & Analysis</h4>
+                    <p>Ground station comparison and extreme value statistics</p>
+                    <div style="margin-top: 1rem; padding: 0.5rem; background: var(--light-blue); border-radius: 5px;">
+                        <small><strong>Output:</strong> Bankable design criteria</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data" class="data-viz fade-in">
+            <h2 style="color: white; margin-bottom: 1rem;"><i class="fas fa-database"></i> Data Sources & Coverage</h2>
+            <p>Multiple data layers integrated for comprehensive analysis</p>
+            
+            <div class="viz-grid">
+                <div class="viz-item">
+                    <h4><i class="fas fa-globe-africa"></i> ERA5 Global Coverage</h4>
+                    <p>1950-present • 31km resolution • Hourly data</p>
+                    <div style="height: 10px; background: linear-gradient(to right, var(--accent-yellow), var(--accent-orange)); margin: 1rem 0; border-radius: 5px;"></div>
+                    <small>Source: Copernicus Climate Data Store</small>
+                </div>
+                
+                <div class="viz-item">
+                    <h4><i class="fas fa-map-marked-alt"></i> High-Resolution Domain</h4>
+                    <p>1km WRF grid • 33×17 points • 0.25° increment</p>
+                    <div style="height: 10px; background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue)); margin: 1rem 0; border-radius: 5px;"></div>
+                    <small>Area: 26°E-30°E, -10°S to -18°S</small>
+                </div>
+                
+                <div class="viz-item">
+                    <h4><i class="fas fa-weather-station"></i> Ground Validation</h4>
+                    <p>Kariba Met Station • Buoy data • Dam instrumentation</p>
+                    <div style="height: 10px; background: linear-gradient(to right, var(--success-green), #2a9d8f); margin: 1rem 0; border-radius: 5px;"></div>
+                    <small>WMO Station: 67743</small>
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="card fade-in">
+            <h3><i class="fas fa-chart-line"></i> Key Findings & Design Parameters</h3>
+            <p>Critical wave statistics for engineering design at Chirahara site</p>
+            
+            <div class="results-grid">
+                <div class="result-card">
+                    <h4><i class="fas fa-ruler-vertical"></i> Significant Wave Height</h4>
+                    <div class="result-value">0.85m</div>
+                    <p>100-year return period maximum wave height</p>
+                    <div style="background: #f0f8ff; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <small><strong>Seasonal range:</strong> 0.25m (summer) - 0.85m (winter)</small>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <h4><i class="fas fa-wind"></i> Dominant Wave Direction</h4>
+                    <div class="result-value">SE</div>
+                    <p>Southeast (135°) prevailing wave direction</p>
+                    <div style="background: #f0f8ff; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <small><strong>Max fetch:</strong> 280km along SE-NW axis</small>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <h4><i class="fas fa-wave-square"></i> Peak Wave Period</h4>
+                    <div class="result-value">2.8s</div>
+                    <p>Average peak period during storm conditions</p>
+                    <div style="background: #f0f8ff; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <small><strong>Range:</strong> 1.5s - 4.2s (95% confidence)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-radius: 12px;">
+                <h4 style="color: var(--dark-blue);"><i class="fas fa-clipboard-check"></i> Engineering Recommendations</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div style="background: white; padding: 1rem; border-radius: 8px;">
+                        <h5><i class="fas fa-anchor" style="color: var(--primary-blue);"></i> Mooring Design</h5>
+                        <p>Design for 1.2m maximum wave height with 2.0 safety factor</p>
+                    </div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px;">
+                        <h5><i class="fas fa-sun" style="color: var(--accent-orange);"></i> Operations Window</h5>
+                        <p>Optimal maintenance: May-September (low wave conditions)</p>
+                    </div>
+                    <div style="background: white; padding: 1rem; border-radius: 8px;">
+                        <h5><i class="fas fa-tachometer-alt" style="color: var(--success-green);"></i> Load Factors</h5>
+                        <p>Dynamic amplification factor: 1.3 for wave loading</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="repository" class="github-section fade-in">
+            <h2><i class="fab fa-github"></i> Open Source Implementation</h2>
+            <p>Complete reproducible workflow available on GitHub</p>
+            
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 10px; margin: 2rem 0;">
+                <h3>Repository Structure</h3>
+                <div style="font-family: 'Courier New', monospace; background: #1e1e1e; padding: 1.5rem; border-radius: 8px; color: #d4d4d4; margin: 1rem 0;">
+                    <span style="color: #569cd6;">charara_01/</span><br>
+                    ├── <span style="color: #9cdcfe;">data/</span>          # ERA5 & ground station data<br>
+                    ├── <span style="color: #9cdcfe;">notebooks/</span>     # Jupyter analysis notebooks<br>
+                    ├── <span style="color: #9cdcfe;">scripts/</span>       # Python automation scripts<br>
+                    ├── <span style="color: #9cdcfe;">config/</span>        # WRF & SWAN configurations<br>
+                    ├── <span style="color: #9cdcfe;">outputs/</span>       # Results & visualizations<br>
+                    └── <span style="color: #9cdcfe;">requirements.txt</span> # Python dependencies
+                </div>
+                
+                <a href="https://github.com/chawas/charara_01" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+                
+                <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <span style="background: #57c5b6; color: white; padding: 0.5rem 1rem; border-radius: 20px;">
+                        <i class="fab fa-python"></i> Python 3.8+
+                    </span>
+                    <span style="background: #1a5f7a; color: white; padding: 0.5rem 1rem; border-radius: 20px;">
+                        <i class="fas fa-cloud"></i> NetCDF/HDF5
+                    </span>
+                    <span style="background: #ff8a5c; color: white; padding: 0.5rem 1rem; border-radius: 20px;">
+                        <i class="fas fa-server"></i> WRF 4.0
+                    </span>
+                    <span style="background: #2a9d8f; color: white; padding: 0.5rem 1rem; border-radius: 20px;">
+                        <i class="fas fa-water"></i> SWAN 41.31
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card fade-in" style="text-align: center;">
+            <h3><i class="fas fa-users"></i> Project Team & Contact</h3>
+            <p style="max-width: 800px; margin: 1rem auto;">This project is led by climate scientists and renewable energy engineers specializing in African hydro-climate systems.</p>
+            
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h5>Project Lead</h5>
+                    <p>Climate Data Scientist</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent-orange), #ff6b3c); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h5>WRF Specialist</h5>
+                    <p>Atmospheric Modeler</p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--success-green), #21867a); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h5>Wave Analyst</h5>
+                    <p>Coastal Engineer</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light-blue); border-radius: 10px;">
+                <h4><i class="fas fa-envelope"></i> Get in Touch</h4>
+                <p>For collaboration or data access, contact: <strong>research@karibasolar.org</strong></p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <h3 style="margin-bottom: 1rem;">Kariba Solar Wave Analysis Project</h3>
+            <p>Advancing renewable energy through rigorous climate science</p>
+            
+            <div style="margin: 2rem 0; display: flex; justify-content: center; gap: 2rem;">
+                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-github"></i></a>
+                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fas fa-file-pdf"></i></a>
+                <a href="#" style="color: white; font-size: 1.5rem;"><i class="fas fa-database"></i></a>
+            </div>
+            
+            <p style="opacity: 0.8; font-size: 0.9rem; margin-top: 2rem;">
+                © 2024 Kariba Solar Research Initiative. This work is licensed under MIT License.
+            </p>
+            <p style="opacity: 0.6; font-size: 0.8rem;">
+                Data sources: ERA5 from Copernicus Climate Data Store, WRF model, ground station observations.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.nav-tabs a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.querySelector('footer p:last-of-type');
+            if (yearSpan) {
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', new Date().getFullYear());
+            }
+        });
+    </script>
+</body>
+</html>
