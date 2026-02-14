@@ -1,1 +1,17 @@
-*.mp4\n*.nc\n*.avi\nEXAMPLE_01/\ndata/\n__pycache__/
+# Large files
+*.mp4
+*.avi
+*.mov
+*.nc
+*.grib
+*.hdf5
+*.tar.gz
+*.zip
+
+# Directories
+EXAMPLE_01/
+data/
+outputs/
+logs/
+__pycache__/
+.DS_Store
