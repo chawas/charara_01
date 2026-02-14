@@ -1,0 +1,61 @@
+# Create the project directory structure
+cd /home/chawas/deployed/charara_01
+mkdir -p config data/era5 data/observations outputs scripts
+
+# Create the kariba_config.yaml file
+cat > config/kariba_config.yaml << 'EOF'
+# Kariba Wind Analysis Configuration
+project:
+  name: "Kariba Wind Regime Analysis"
+  description: "30-year wind analysis of Lake Kariba using WRF and ERA5"
+  version: "1.0.0"
+  author: "Webster Chawaguta"
+  email: "wchawaguta@example.com"
+  start_year: 1990
+  end_year: 2020
+
+lake:
+  name: "Kariba"
+  charara_point: [-16.53, 28.83]  # Charara Bay coordinates
+  dam_point: [-16.52, 28.76]      # Kariba Dam coordinates
+  avg_depth: 29.0                 # Average depth in meters
+  max_depth: 97.0                 # Maximum depth at dam
+  coordinates:
+    north: -15.75
+    south: -17.25
+    west: 27.25
+    east: 29.00
+
+paths:
+  python: "/home/chawas/deployed/deployed_env/bin/python3"
+  project_root: "/home/chawas/deployed/charara_01"
+  data_dir: "./data"
+  output_dir: "./outputs"
+  era5_dir: "./data/era5"
+  observations_dir: "./data/observations"
+  # Update these with your actual WRF paths:
+  wrf_dir: "/path/to/WRF"
+  wps_dir: "/path/to/WPS"
+  geog_data: "/path/to/WPS_GEOG"
+
+era5:
+  variables:
+    - "10m_u_component_of_wind"
+    - "10m_v_component_of_wind"
+    - "2m_temperature"
+    - "2m_dewpoint_temperature"
+    - "mean_sea_level_pressure"
+    - "surface_pressure"
+    - "total_precipitation"
+  region: [-10.0, 26.0, -18.0, 30.0]  # [north, west, south, east] with buffer
+
+analysis:
+  seasons:
+    rainy: [11, 12, 1, 2, 3]  # Nov-Mar
+    dry: [5, 6, 7, 8, 9]      # May-Sep
+    transition: [4, 10]       # Apr, Oct
+  wind_speed_bins: [0, 2, 5, 8, 12, 20]
+  extreme_threshold: 95  # Percentile for extreme events
+EOF
+
+echo "✓ Created config/kariba_config.yaml"
